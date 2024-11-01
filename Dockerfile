@@ -5,10 +5,10 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the built JAR file into the container
-COPY target/your-app-name.jar app.jar
+COPY target/mockserver-0.0.1-SNAPSHOT.jar mockserver.jar
 
 # Expose the application port
 EXPOSE 2001
 
 # Command to run the JAR
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "mockserver.jar"]
