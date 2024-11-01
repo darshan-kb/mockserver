@@ -47,6 +47,7 @@ public class MockserverApplication {
 
 	@GetMapping("/hello")
 	public String hello(){
+		System.out.println("Hello");
 		return "Hello world!";
 	}
 
