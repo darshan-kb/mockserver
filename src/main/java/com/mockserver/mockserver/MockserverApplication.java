@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.Executor;
@@ -17,6 +19,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class MockserverApplication {
 	@Autowired
 	Config config;
+
+	@Autowired
+	EmployeeRepo employeeRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MockserverApplication.class, args);
@@ -49,6 +54,11 @@ public class MockserverApplication {
 	public String hello(){
 		System.out.println("Hello");
 		return "Hello world!";
+	}
+
+	@PostMapping("/add")
+	public Employee saveEmployee(@RequestBody Employee employee){
+		return employeeRepo.save(employee);
 	}
 
 }
