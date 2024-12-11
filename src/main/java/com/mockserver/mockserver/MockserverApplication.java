@@ -19,8 +19,8 @@ public class MockserverApplication {
 	@Autowired
 	Config config;
 
-	@Autowired
-	EmployeeRepo employeeRepo;
+//	@Autowired
+//	EmployeeRepo employeeRepo;
 
 	@Autowired
 	WebClient webClient;
@@ -68,10 +68,10 @@ public class MockserverApplication {
 		return "Hello";
 	}
 
-	@PostMapping("/add")
-	public Employee saveEmployee(@RequestBody Employee employee){
-		return employeeRepo.save(employee);
-	}
+//	@PostMapping("/add")
+//	public Employee saveEmployee(@RequestBody Employee employee){
+//		return employeeRepo.save(employee);
+//	}
 
 
 
