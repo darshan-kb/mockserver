@@ -26,6 +26,7 @@ public class MockserverApplication {
 	WebClient webClient;
 
 	@Value("testUrl")
+	private String testUrl;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MockserverApplication.class, args);
@@ -57,7 +58,7 @@ public class MockserverApplication {
 	@GetMapping("/hello")
 	public String hello(@RequestParam String value){
 		System.out.println("Hello");
-		String response = webClient.get().uri("/test?value="+value).retrieve().bodyToMono(String.class).block();
+		String response = webClient.get().uri(testUrl+"/test?value="+value).retrieve().bodyToMono(String.class).block();
 		System.out.println(response);
 		return "Hello world!";
 	}
