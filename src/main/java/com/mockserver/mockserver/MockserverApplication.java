@@ -25,7 +25,7 @@ public class MockserverApplication {
 	@Autowired
 	WebClient webClient;
 
-	@Value("testUrl")
+	@Value("${testUrl}")
 	private String testUrl;
 
 	public static void main(String[] args) {
