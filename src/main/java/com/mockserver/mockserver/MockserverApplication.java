@@ -2,14 +2,13 @@ package com.mockserver.mockserver;
 
 import com.mockserver.mockserver.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -22,6 +21,11 @@ public class MockserverApplication {
 
 	@Autowired
 	EmployeeRepo employeeRepo;
+
+	@Autowired
+	WebClient webClient;
+
+	@Value("testUrl")
 
 	public static void main(String[] args) {
 		SpringApplication.run(MockserverApplication.class, args);
@@ -51,14 +55,24 @@ public class MockserverApplication {
 	}
 
 	@GetMapping("/hello")
-	public String hello(){
+	public String hello(@RequestParam String value){
 		System.out.println("Hello");
+		String response = webClient.get().uri("/test?"+value).retrieve().bodyToMono(String.class).block();
+		System.out.println(response);
 		return "Hello world!";
+	}
+
+	@GetMapping("/test")
+	public String test(@RequestParam String value){
+		System.out.println("Hello from test method....."+value);
+		return "Hello";
 	}
 
 	@PostMapping("/add")
 	public Employee saveEmployee(@RequestBody Employee employee){
 		return employeeRepo.save(employee);
 	}
+
+
 
 }
