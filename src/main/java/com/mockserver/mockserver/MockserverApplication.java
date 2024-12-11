@@ -57,7 +57,7 @@ public class MockserverApplication {
 	@GetMapping("/hello")
 	public String hello(@RequestParam String value){
 		System.out.println("Hello");
-		String response = webClient.get().uri("/test?"+value).retrieve().bodyToMono(String.class).block();
+		String response = webClient.get().uri("/test?value="+value).retrieve().bodyToMono(String.class).block();
 		System.out.println(response);
 		return "Hello world!";
 	}
